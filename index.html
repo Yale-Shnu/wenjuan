@@ -686,10 +686,15 @@
                 // 方案1：使用GitHub Issues API（需要配置）
                 // 方案2：使用GitHub Pages + GitHub Actions（更安全）
                 
-                // 获取管理员配置
-                const repoOwner = prompt('请输入GitHub用户名:', 'Yale-Shnu');
-                const repoName = prompt('请输入仓库名:', 'wenjuan');
-                const GITHUB_TOKEN = prompt('请输入GitHub Personal Access Token:');
+                // 获取管理员配置（从sessionStorage获取）
+                let repoOwner = sessionStorage.getItem('repoOwner');
+                let repoName = sessionStorage.getItem('repoName');
+                let GITHUB_TOKEN = sessionStorage.getItem('githubToken');
+                
+                if (!repoOwner || !repoName || !GITHUB_TOKEN) {
+                    alert('需要管理员配置才能提交数据，请联系管理员获取配置信息');
+                    return;
+                }
                 
                 const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues`, {
                     method: 'POST',
