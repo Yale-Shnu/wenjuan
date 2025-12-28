@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>问卷统计结果查看</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         * {
             margin: 0;
@@ -235,6 +235,15 @@
             font-size: 0.95rem;
         }
         
+        .bi-spin {
+            animation: spin 1s infinite linear;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: 1fr;
@@ -254,12 +263,12 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="fas fa-chart-bar"></i> 问卷统计结果管理</h1>
+            <h1><i class="bi bi-bar-chart"></i> 问卷统计结果管理</h1>
             <p>查看和分析问卷提交数据</p>
         </header>
         
         <div class="config-section">
-            <h2><i class="fas fa-cog"></i> GitHub API 配置</h2>
+            <h2><i class="bi bi-gear"></i> GitHub API 配置</h2>
             <div class="config-group">
                 <div class="input-group">
                     <label for="repoOwner">GitHub 用户名：</label>
@@ -275,55 +284,55 @@
                 </div>
             </div>
             <button class="fetch-btn" onclick="fetchSubmissions()">
-                <i class="fas fa-download"></i> 获取提交数据
+                <i class="bi bi-download"></i> 获取提交数据
             </button>
         </div>
         
         <div class="filter-section" id="filterSection" style="display: none;">
-            <h3><i class="fas fa-filter"></i> 筛选选项</h3>
+            <h3><i class="bi bi-funnel"></i> 筛选选项</h3>
             <div class="filter-group">
                 <input type="text" id="nameFilter" placeholder="按提交者姓名筛选">
                 <input type="date" id="dateFilterFrom" placeholder="开始日期">
                 <input type="date" id="dateFilterTo" placeholder="结束日期">
                 <button class="export-btn" onclick="applyFilters()">
-                    <i class="fas fa-search"></i> 应用筛选
+                    <i class="bi bi-search"></i> 应用筛选
                 </button>
                 <button class="export-btn" onclick="clearFilters()">
-                    <i class="fas fa-times"></i> 清除筛选
+                    <i class="bi bi-x-lg"></i> 清除筛选
                 </button>
             </div>
         </div>
         
         <div class="loading" id="loading">
-            <i class="fas fa-spinner fa-spin fa-3x"></i>
+            <i class="bi bi-arrow-repeat bi-spin" style="font-size: 3rem;"></i>
             <p>正在加载数据...</p>
         </div>
         
         <div class="error-message" id="errorMessage">
-            <i class="fas fa-exclamation-circle"></i> <span id="errorText"></span>
+            <i class="bi bi-exclamation-circle"></i> <span id="errorText"></span>
         </div>
         
         <div class="stats-section" id="statsSection" style="display: none;">
-            <h2><i class="fas fa-chart-line"></i> 统计概览</h2>
+            <h2><i class="bi bi-graph-up"></i> 统计概览</h2>
             <div class="stats-grid" id="statsGrid">
                 <!-- 统计卡片将在这里动态生成 -->
             </div>
             
             <div style="margin: 20px 0;">
                 <button class="export-btn" onclick="exportToCSV()">
-                    <i class="fas fa-file-csv"></i> 导出CSV
+                    <i class="bi bi-file-earmark-spreadsheet"></i> 导出CSV
                 </button>
                 <button class="export-btn" onclick="exportToJSON()">
-                    <i class="fas fa-file-code"></i> 导出JSON
+                    <i class="bi bi-filetype-json"></i> 导出JSON
                 </button>
                 <button class="export-btn" onclick="printResults()">
-                    <i class="fas fa-print"></i> 打印结果
+                    <i class="bi bi-printer"></i> 打印结果
                 </button>
             </div>
         </div>
         
         <div class="submissions-section" id="submissionsSection" style="display: none;">
-            <h2><i class="fas fa-list"></i> 提交详情</h2>
+            <h2><i class="bi bi-list-ul"></i> 提交详情</h2>
             <div id="submissionsList">
                 <!-- 提交记录将在这里动态生成 -->
             </div>
@@ -336,7 +345,7 @@
 
         // 从localStorage加载配置
         function loadConfig() {
-            document.getElementById('repoOwner').value = localStorage.getItem('repoOwner') || '请填写您的GitHub用户名';
+            document.getElementById('repoOwner').value = localStorage.getItem('repoOwner') || 'Yale-Shnu';
             document.getElementById('repoName').value = localStorage.getItem('repoName') || 'wenjuan';
             document.getElementById('githubToken').value = localStorage.getItem('githubToken') || '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';
         }
@@ -457,10 +466,10 @@
                     <div class="submission-card">
                         <div class="submission-header">
                             <div class="submission-title">
-                                <i class="fas fa-user"></i> ${userName}
+                                <i class="bi bi-person"></i> ${userName}
                             </div>
                             <div class="submission-date">
-                                <i class="fas fa-clock"></i> ${submitTime}
+                                <i class="bi bi-clock"></i> ${submitTime}
                             </div>
                         </div>
                         <div class="submission-content">
