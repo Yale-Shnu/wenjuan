@@ -638,6 +638,7 @@
         <div class="footer-note">
             <p>本问卷由材料作文审题拟题训练卷整理制作 &copy; 2023</p>
             <p>所有回答将仅用于教学研究目的，并严格保密</p>
+            <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;"><i class="fas fa-cog"></i> 管理员入口</a></p>
         </div>
     </div>
 
@@ -676,15 +677,15 @@
                 // 方案1：使用GitHub Issues API（需要配置）
                 // 方案2：使用GitHub Pages + GitHub Actions（更安全）
                 
-                // 这里我们使用模拟提交成功
-                // 实际使用时，您需要取消下面的注释并配置您的GitHub仓库信息
+                // 实际GitHub API调用
+                const repoOwner = '请填写您的GitHub用户名'; // 替换为您的GitHub用户名
+                const repoName = 'wenjuan'; // 替换为您的仓库名
+                const GITHUB_TOKEN = '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';
                 
-                /*
-                // 实际GitHub API调用代码示例：
-                const response = await fetch('https://api.github.com/repos/用户名/仓库名/issues', {
+                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues`, {
                     method: 'POST',
                     headers: {
-                        'Authorization': 'token YOUR_GITHUB_TOKEN',
+                        'Authorization': `token ${GITHUB_TOKEN}`,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
@@ -697,10 +698,6 @@
                 if (!response.ok) {
                     throw new Error('提交失败');
                 }
-                */
-                
-                // 模拟成功响应（实际使用时应删除）
-                await new Promise(resolve => setTimeout(resolve, 1500));
                 
                 // 显示成功消息
                 document.getElementById('loading').style.display = 'none';
