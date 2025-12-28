@@ -345,9 +345,9 @@
 
         // 从localStorage加载配置
         function loadConfig() {
-            document.getElementById('repoOwner').value = localStorage.getItem('repoOwner') || 'Yale-Shnu';
-            document.getElementById('repoName').value = localStorage.getItem('repoName') || 'wenjuan';
-            document.getElementById('githubToken').value = localStorage.getItem('githubToken') || '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';
+            document.getElementById('repoOwner').value = localStorage.getItem('repoOwner') || '';
+            document.getElementById('repoName').value = localStorage.getItem('repoName') || '';
+            document.getElementById('githubToken').value = localStorage.getItem('githubToken') || '';
         }
 
         // 保存配置到localStorage
