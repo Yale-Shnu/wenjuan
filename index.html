@@ -4,7 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>材料作文审题拟题训练问卷调查</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        /* 自定义图标样式 */
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        
+        .icon-info {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z'/%3E%3Cpath d='m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492-.246-.686-.246-.275 0-.375.193-.304.533L9.506 8.29c.123-.572.016-1.089-.464-1.089H7.676c-.165 0-.219.077-.186.247l.416 1.973z'/%3E%3Cpath fill-rule='evenodd' d='M8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z'/%3E%3C/svg%3E");
+        }
+        
+        .icon-lock {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z'/%3E%3C/svg%3E");
+        }
+        
+        .icon-pen {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.613l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 1 .642-.056z'/%3E%3C/svg%3E");
+        }
+        
+        .icon-loading {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z'/%3E%3Cpath d='M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z'/%3E%3C/svg%3E");
+        }
+        
+        .icon-check {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='green' viewBox='0 0 16 16'%3E%3Cpath d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z'/%3E%3C/svg%3E");
+        }
+        
+        .icon-error {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='red' viewBox='0 0 16 16'%3E%3Cpath d='M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z'/%3E%3C/svg%3E");
+        }
+        
+        .icon-send {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L5.071 11.19l2.76 4.338 5.592-13.65Z'/%3E%3C/svg%3E");
+        }
+        
+        .icon-gear {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z'/%3E%3Cpath d='M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319z'/%3E%3C/svg%3E");
+        }
+        
+        .icon-spinner {
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            vertical-align: middle;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #6a11cb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
     <style>
         * {
             margin: 0;
@@ -320,13 +379,13 @@
         </header>
         
         <div class="instructions">
-            <p><i class="bi bi-info-circle"></i> 本问卷包含22道材料作文题目，请仔细阅读每道题目，并在下方文本框中填写您的审题思考、拟题方案或写作思路。您的回答将帮助我们了解作文教学的现状。</p>
+            <p><span class="icon icon-info"></span> 本问卷包含22道材料作文题目，请仔细阅读每道题目，并在下方文本框中填写您的审题思考、拟题方案或写作思路。您的回答将帮助我们了解作文教学的现状。</p>
         </div>
         
             <div class="admin-note">
-                <h3><i class="bi bi-shield-lock"></i> 管理员说明</h3>
+                <h3><span class="icon icon-lock"></span> 管理员说明</h3>
                 <p>此问卷使用GitHub Issues作为数据存储后台。所有提交的回答将自动创建为GitHub Issues，只有仓库所有者（您）可以在GitHub上查看所有提交结果。</p>
-                <p style="margin-top: 10px;"><a href="config.html" style="color: #ff8f00; text-decoration: underline;"><i class="bi bi-gear"></i> 点击这里配置GitHub API信息</a></p>
+                <p style="margin-top: 10px;"><a href="config.html" style="color: #ff8f00; text-decoration: underline;"><span class="icon icon-gear"></span> 点击这里配置GitHub API信息</a></p>
             </div>
         
         <form class="survey-form" id="surveyForm">
@@ -337,7 +396,7 @@
             
             <!-- 题目1 -->
             <div class="form-section">
-                <h2 class="section-title"><i class="bi bi-pen"></i> 作文题目一至二十二</h2>
+                <h2 class="section-title"><span class="icon icon-pen"></span> 作文题目一至二十二</h2>
                 
                 <div class="question">
                     <div class="question-title">
@@ -626,21 +685,21 @@
             </div>
             
             <div class="loading" id="loading">
-                <i class="bi bi-arrow-repeat bi-spin" style="font-size: 2rem;"></i>
+                <span class="icon-spinner" style="font-size: 2rem; margin-right: 10px;"></span>
                 <p>正在提交，请稍候...</p>
             </div>
             
             <div class="success-message" id="successMessage">
-                <i class="bi bi-check-circle"></i> 提交成功！感谢您的参与。您的回答已保存，管理员可以在后台查看。
+                <span class="icon icon-check"></span> 提交成功！感谢您的参与。您的回答已保存，管理员可以在后台查看。
             </div>
             
             <div class="error-message" id="errorMessage">
-                <i class="bi bi-exclamation-circle"></i> 提交失败。请检查网络连接后重试，或联系管理员。
+                <span class="icon icon-error"></span> 提交失败。请检查网络连接后重试，或联系管理员。
             </div>
             
             <div class="submit-section">
                 <button type="submit" class="submit-btn">
-                    <i class="bi bi-send"></i> 提交所有回答
+                    <span class="icon icon-send"></span> 提交所有回答
                 </button>
             </div>
         </form>
@@ -648,8 +707,8 @@
         <div class="footer-note">
             <p>本问卷由材料作文审题拟题训练卷整理制作 &copy; 2023</p>
             <p>所有回答将仅用于教学研究目的，并严格保密</p>
-            <p id="configStatus" style="color: #666;"><i class="bi bi-info-circle"></i> 检查配置状态中...</p>
-            <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;"><i class="bi bi-bar-chart"></i> 统计管理</a> | <a href="config.html" style="color: #ff8f00; text-decoration: none;"><i class="bi bi-gear"></i> 系统配置</a></p>
+            <p id="configStatus" style="color: #666;"><span class="icon icon-info"></span> 检查配置状态中...</p>
+            <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;">📊 统计管理</a> | <a href="config.html" style="color: #ff8f00; text-decoration: none;">⚙️ 系统配置</a></p>
         </div>
     </div>
 
@@ -703,6 +762,8 @@
                     headers: {
                         'Authorization': `token ${GITHUB_TOKEN}`,
                         'Content-Type': 'application/json',
+                        'Accept': 'application/vnd.github.v3+json',
+                        'User-Agent': 'Questionnaire-App'
                     },
                     body: JSON.stringify({
                         title: `作文问卷提交 - ${userName} - ${new Date().toLocaleDateString()}`,
@@ -712,7 +773,17 @@
                 });
                 
                 if (!response.ok) {
-                    throw new Error('提交失败');
+                    let errorMessage = '提交失败';
+                    if (response.status === 401) {
+                        errorMessage = '认证失败，请检查Personal Access Token是否正确';
+                    } else if (response.status === 403) {
+                        errorMessage = '权限不足，请检查Token权限或API请求限制';
+                    } else if (response.status === 404) {
+                        errorMessage = '仓库不存在，请检查用户名和仓库名';
+                    } else if (response.status === 422) {
+                        errorMessage = '数据验证失败，请检查提交内容';
+                    }
+                    throw new Error(`${errorMessage} (HTTP ${response.status})`);
                 }
                 
                 // 显示成功消息
@@ -768,10 +839,10 @@
             const statusElement = document.getElementById('configStatus');
             
             if (repoOwner && repoName && githubToken) {
-                statusElement.innerHTML = '<i class="bi bi-check-circle" style="color: #28a745;"></i> 系统已配置，可以正常提交数据';
+                statusElement.innerHTML = '<span class="icon icon-check" style="margin-right: 5px;"></span> 系统已配置，可以正常提交数据';
                 statusElement.style.color = '#28a745';
             } else {
-                statusElement.innerHTML = '<i class="bi bi-exclamation-triangle" style="color: #ffc107;"></i> 系统未配置，请先<a href="config.html" style="color: #ff8f00; text-decoration: underline;">配置GitHub API信息</a>';
+                statusElement.innerHTML = '<span class="icon icon-error" style="margin-right: 5px;"></span> 系统未配置，请先<a href="config.html" style="color: #ff8f00; text-decoration: underline;">配置GitHub API信息</a>';
                 statusElement.style.color = '#856404';
             }
         }
