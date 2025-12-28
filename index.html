@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>材料作文审题拟题训练问卷调查</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         * {
             margin: 0;
@@ -301,6 +301,15 @@
             border-radius: 8px;
             color: #c62828;
         }
+        
+        .bi-spin {
+            animation: spin 1s infinite linear;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -311,11 +320,11 @@
         </header>
         
         <div class="instructions">
-            <p><i class="fas fa-info-circle"></i> 本问卷包含22道材料作文题目，请仔细阅读每道题目，并在下方文本框中填写您的审题思考、拟题方案或写作思路。您的回答将帮助我们了解作文教学的现状。</p>
+            <p><i class="bi bi-info-circle"></i> 本问卷包含22道材料作文题目，请仔细阅读每道题目，并在下方文本框中填写您的审题思考、拟题方案或写作思路。您的回答将帮助我们了解作文教学的现状。</p>
         </div>
         
         <div class="admin-note">
-            <h3><i class="fas fa-lock"></i> 管理员说明</h3>
+            <h3><i class="bi bi-shield-lock"></i> 管理员说明</h3>
             <p>此问卷使用GitHub Issues作为数据存储后台。所有提交的回答将自动创建为GitHub Issues，只有仓库所有者（您）可以在GitHub上查看所有提交结果。如需修改仓库设置，请参考代码中的配置说明。</p>
         </div>
         
@@ -327,7 +336,7 @@
             
             <!-- 题目1 -->
             <div class="form-section">
-                <h2 class="section-title"><i class="fas fa-pen"></i> 作文题目一至二十二</h2>
+                <h2 class="section-title"><i class="bi bi-pen"></i> 作文题目一至二十二</h2>
                 
                 <div class="question">
                     <div class="question-title">
@@ -616,21 +625,21 @@
             </div>
             
             <div class="loading" id="loading">
-                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <i class="bi bi-arrow-repeat bi-spin" style="font-size: 2rem;"></i>
                 <p>正在提交，请稍候...</p>
             </div>
             
             <div class="success-message" id="successMessage">
-                <i class="fas fa-check-circle"></i> 提交成功！感谢您的参与。您的回答已保存，管理员可以在后台查看。
+                <i class="bi bi-check-circle"></i> 提交成功！感谢您的参与。您的回答已保存，管理员可以在后台查看。
             </div>
             
             <div class="error-message" id="errorMessage">
-                <i class="fas fa-exclamation-circle"></i> 提交失败。请检查网络连接后重试，或联系管理员。
+                <i class="bi bi-exclamation-circle"></i> 提交失败。请检查网络连接后重试，或联系管理员。
             </div>
             
             <div class="submit-section">
                 <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane"></i> 提交所有回答
+                    <i class="bi bi-send"></i> 提交所有回答
                 </button>
             </div>
         </form>
@@ -638,7 +647,7 @@
         <div class="footer-note">
             <p>本问卷由材料作文审题拟题训练卷整理制作 &copy; 2023</p>
             <p>所有回答将仅用于教学研究目的，并严格保密</p>
-            <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;"><i class="fas fa-cog"></i> 管理员入口</a></p>
+            <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;"><i class="bi bi-gear"></i> 管理员入口</a></p>
         </div>
     </div>
 
@@ -678,7 +687,7 @@
                 // 方案2：使用GitHub Pages + GitHub Actions（更安全）
                 
                 // 实际GitHub API调用
-                const repoOwner = '请填写您的GitHub用户名'; // 替换为您的GitHub用户名
+                const repoOwner = 'Yale-Shnu'; // 替换为您的GitHub用户名
                 const repoName = 'wenjuan'; // 替换为您的仓库名
                 const GITHUB_TOKEN = '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';
                 
