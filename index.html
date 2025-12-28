@@ -323,10 +323,11 @@
             <p><i class="bi bi-info-circle"></i> 本问卷包含22道材料作文题目，请仔细阅读每道题目，并在下方文本框中填写您的审题思考、拟题方案或写作思路。您的回答将帮助我们了解作文教学的现状。</p>
         </div>
         
-        <div class="admin-note">
-            <h3><i class="bi bi-shield-lock"></i> 管理员说明</h3>
-            <p>此问卷使用GitHub Issues作为数据存储后台。所有提交的回答将自动创建为GitHub Issues，只有仓库所有者（您）可以在GitHub上查看所有提交结果。如需修改仓库设置，请参考代码中的配置说明。</p>
-        </div>
+            <div class="admin-note">
+                <h3><i class="bi bi-shield-lock"></i> 管理员说明</h3>
+                <p>此问卷使用GitHub Issues作为数据存储后台。所有提交的回答将自动创建为GitHub Issues，只有仓库所有者（您）可以在GitHub上查看所有提交结果。</p>
+                <p style="margin-top: 10px;"><a href="config.html" style="color: #ff8f00; text-decoration: underline;"><i class="bi bi-gear"></i> 点击这里配置GitHub API信息</a></p>
+            </div>
         
         <form class="survey-form" id="surveyForm">
             <div class="user-info">
@@ -647,7 +648,8 @@
         <div class="footer-note">
             <p>本问卷由材料作文审题拟题训练卷整理制作 &copy; 2023</p>
             <p>所有回答将仅用于教学研究目的，并严格保密</p>
-            <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;"><i class="bi bi-gear"></i> 管理员入口</a></p>
+            <p id="configStatus" style="color: #666;"><i class="bi bi-info-circle"></i> 检查配置状态中...</p>
+            <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;"><i class="bi bi-bar-chart"></i> 统计管理</a> | <a href="config.html" style="color: #ff8f00; text-decoration: none;"><i class="bi bi-gear"></i> 系统配置</a></p>
         </div>
     </div>
 
@@ -692,7 +694,7 @@
                 let GITHUB_TOKEN = sessionStorage.getItem('githubToken');
                 
                 if (!repoOwner || !repoName || !GITHUB_TOKEN) {
-                    alert('需要管理员配置才能提交数据，请联系管理员获取配置信息');
+                    alert('系统未配置，请先配置GitHub API信息。\n\n点击页面底部的"系统配置"链接进行配置，然后重新提交问卷。');
                     return;
                 }
                 
@@ -755,6 +757,31 @@
         
         nameInput.addEventListener('input', function() {
             localStorage.setItem('survey_userName', this.value);
+        });
+        
+        // 检查配置状态
+        function checkConfigStatus() {
+            const repoOwner = sessionStorage.getItem('repoOwner');
+            const repoName = sessionStorage.getItem('repoName');
+            const githubToken = sessionStorage.getItem('githubToken');
+            
+            const statusElement = document.getElementById('configStatus');
+            
+            if (repoOwner && repoName && githubToken) {
+                statusElement.innerHTML = '<i class="bi bi-check-circle" style="color: #28a745;"></i> 系统已配置，可以正常提交数据';
+                statusElement.style.color = '#28a745';
+            } else {
+                statusElement.innerHTML = '<i class="bi bi-exclamation-triangle" style="color: #ffc107;"></i> 系统未配置，请先<a href="config.html" style="color: #ff8f00; text-decoration: underline;">配置GitHub API信息</a>';
+                statusElement.style.color = '#856404';
+            }
+        }
+        
+        // 页面加载时检查配置状态
+        document.addEventListener('DOMContentLoaded', function() {
+            checkConfigStatus();
+            
+            // 每5秒检查一次配置状态
+            setInterval(checkConfigStatus, 5000);
         });
     </script>
 </body>
