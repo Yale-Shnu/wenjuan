@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>问卷统计结果查看</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- 使用Emoji图标，避免CDN问题 -->
     <style>
         * {
             margin: 0;
@@ -244,6 +244,21 @@
             to { transform: rotate(360deg); }
         }
         
+        .icon-spinner {
+            display: inline-block;
+            width: 3rem;
+            height: 3rem;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #6a11cb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         @media (max-width: 768px) {
             .stats-grid {
                 grid-template-columns: 1fr;
@@ -263,12 +278,12 @@
 <body>
     <div class="container">
         <header>
-            <h1><i class="bi bi-bar-chart"></i> 问卷统计结果管理</h1>
+            <h1>📊 问卷统计结果管理</h1>
             <p>查看和分析问卷提交数据</p>
         </header>
         
         <div class="config-section">
-            <h2><i class="bi bi-gear"></i> GitHub API 配置</h2>
+            <h2>⚙️ GitHub API 配置</h2>
             <div class="config-group">
                 <div class="input-group">
                     <label for="repoOwner">GitHub 用户名：</label>
@@ -284,55 +299,55 @@
                 </div>
             </div>
             <button class="fetch-btn" onclick="fetchSubmissions()">
-                <i class="bi bi-download"></i> 获取提交数据
+                📥 获取提交数据
             </button>
         </div>
         
         <div class="filter-section" id="filterSection" style="display: none;">
-            <h3><i class="bi bi-funnel"></i> 筛选选项</h3>
+            <h3>🔍 筛选选项</h3>
             <div class="filter-group">
                 <input type="text" id="nameFilter" placeholder="按提交者姓名筛选">
                 <input type="date" id="dateFilterFrom" placeholder="开始日期">
                 <input type="date" id="dateFilterTo" placeholder="结束日期">
                 <button class="export-btn" onclick="applyFilters()">
-                    <i class="bi bi-search"></i> 应用筛选
+                    🔎 应用筛选
                 </button>
                 <button class="export-btn" onclick="clearFilters()">
-                    <i class="bi bi-x-lg"></i> 清除筛选
+                    ❎ 清除筛选
                 </button>
             </div>
         </div>
         
         <div class="loading" id="loading">
-            <i class="bi bi-arrow-repeat bi-spin" style="font-size: 3rem;"></i>
+            <div class="icon-spinner" style="font-size: 3rem; margin: 0 auto;"></div>
             <p>正在加载数据...</p>
         </div>
         
         <div class="error-message" id="errorMessage">
-            <i class="bi bi-exclamation-circle"></i> <span id="errorText"></span>
+            ❌ <span id="errorText"></span>
         </div>
         
         <div class="stats-section" id="statsSection" style="display: none;">
-            <h2><i class="bi bi-graph-up"></i> 统计概览</h2>
+            <h2>📈 统计概览</h2>
             <div class="stats-grid" id="statsGrid">
                 <!-- 统计卡片将在这里动态生成 -->
             </div>
             
             <div style="margin: 20px 0;">
                 <button class="export-btn" onclick="exportToCSV()">
-                    <i class="bi bi-file-earmark-spreadsheet"></i> 导出CSV
+                    📊 导出CSV
                 </button>
                 <button class="export-btn" onclick="exportToJSON()">
-                    <i class="bi bi-filetype-json"></i> 导出JSON
+                    📄 导出JSON
                 </button>
                 <button class="export-btn" onclick="printResults()">
-                    <i class="bi bi-printer"></i> 打印结果
+                    🖨️ 打印结果
                 </button>
             </div>
         </div>
         
         <div class="submissions-section" id="submissionsSection" style="display: none;">
-            <h2><i class="bi bi-list-ul"></i> 提交详情</h2>
+            <h2>📋 提交详情</h2>
             <div id="submissionsList">
                 <!-- 提交记录将在这里动态生成 -->
             </div>
@@ -379,12 +394,13 @@
                 allSubmissions = [];
 
                 while (hasMore) {
-                    const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues?page=${page}&per_page=100&labels=questionnaire-submission`, {
-                        headers: {
-                            'Authorization': `token ${githubToken}`,
-                            'Accept': 'application/vnd.github.v3+json'
-                        }
-                    });
+                const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/issues?page=${page}&per_page=100&labels=questionnaire-submission`, {
+                    headers: {
+                        'Authorization': `token ${githubToken}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'User-Agent': 'Questionnaire-App'
+                    }
+                });
 
                     if (!response.ok) {
                         throw new Error(`获取数据失败: ${response.status}`);
@@ -466,10 +482,10 @@
                     <div class="submission-card">
                         <div class="submission-header">
                             <div class="submission-title">
-                                <i class="bi bi-person"></i> ${userName}
+                                👤 ${userName}
                             </div>
                             <div class="submission-date">
-                                <i class="bi bi-clock"></i> ${submitTime}
+                                🕐 ${submitTime}
                             </div>
                         </div>
                         <div class="submission-content">
