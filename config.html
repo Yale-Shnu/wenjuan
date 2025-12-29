@@ -211,9 +211,25 @@
                 <button type="submit" class="btn btn-primary">
                     ✅ 保存配置
                 </button>
+                <button type="button" class="btn btn-secondary" onclick="generateShareLink()">
+                    🔗 生成分享链接
+                </button>
                 <button type="button" class="btn btn-secondary" onclick="clearConfig()">
                     🗑️ 清除配置
                 </button>
+            </div>
+            
+            <div class="success-message" id="shareLinkBox" style="display: none;">
+                📋 分享链接已生成！<br>
+                <div style="background: white; padding: 10px; border-radius: 6px; margin-top: 10px; word-break: break-all;">
+                    <code id="shareLink"></code>
+                </div>
+                <button class="btn" onclick="copyShareLink()" style="margin-top: 10px;">
+                    📋 复制链接
+                </button>
+                <div style="margin-top: 15px; font-size: 0.9rem; color: #666;">
+                    💡 将此链接发给参与者，他们无需配置即可提交问卷
+                </div>
             </div>
         </form>
         
@@ -321,6 +337,60 @@
                 showMessage('error', error.message);
             }
         });
+        
+        // 生成分享链接
+        function generateShareLink() {
+            const repoOwner = document.getElementById('repoOwner').value.trim();
+            const repoName = document.getElementById('repoName').value.trim();
+            const token = document.getElementById('githubToken').value.trim();
+            
+            if (!repoOwner || !repoName || !token) {
+                showMessage('error', '请先完成配置再生成分享链接');
+                return;
+            }
+            
+            // 创建带参数的URL
+            const baseUrl = window.location.origin + window.location.pathname.replace('config.html', 'index.html');
+            const shareUrl = `${baseUrl}?repo=${encodeURIComponent(repoOwner)}&repoName=${encodeURIComponent(repoName)}&token=${encodeURIComponent(token)}`;
+            
+            document.getElementById('shareLink').textContent = shareUrl;
+            document.getElementById('shareLinkBox').style.display = 'block';
+            
+            // 隐藏其他消息
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // 滚动到分享链接
+            document.getElementById('shareLinkBox').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 复制分享链接
+        function copyShareLink() {
+            const shareLink = document.getElementById('shareLink').textContent;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareLink).then(() => {
+                    showMessage('success', '链接已复制到剪贴板！');
+                    setTimeout(() => {
+                        document.getElementById('successMessage').style.display = 'none';
+                    }, 3000);
+                }).catch(() => {
+                    showMessage('error', '复制失败，请手动复制');
+                });
+            } else {
+                // 兼容旧浏览器
+                const textArea = document.createElement('textarea');
+                textArea.value = shareLink;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showMessage('success', '链接已复制！');
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 3000);
+            }
+        }
         
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
