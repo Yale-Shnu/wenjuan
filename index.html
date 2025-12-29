@@ -704,12 +704,12 @@
             </div>
         </form>
         
-        <div class="footer-note">
-            <p>本问卷由材料作文审题拟题训练卷整理制作 &copy; 2023</p>
-            <p>所有回答将仅用于教学研究目的，并严格保密</p>
-            <p id="configStatus" style="color: #666;"><span class="icon icon-info"></span> 检查配置状态中...</p>
-            <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;">📊 统计管理</a> | <a href="config.html" style="color: #ff8f00; text-decoration: none;">⚙️ 系统配置</a></p>
-        </div>
+            <div class="footer-note">
+                <p>本问卷由材料作文审题拟题训练卷整理制作 &copy; 2023</p>
+                <p>所有回答将仅用于教学研究目的，并严格保密</p>
+                <p id="configStatus" style="color: #666;"><span class="icon icon-info"></span> 检查配置状态中...</p>
+                <p><a href="admin.html" style="color: #6a11cb; text-decoration: none;">📊 统计管理</a> | <a href="config.html" style="color: #ff8f00; text-decoration: none;">⚙️ 系统配置</a> | <a href="token-test.html" style="color: #28a745; text-decoration: none;">🔍 Token诊断</a></p>
+            </div>
     </div>
 
     <script>
@@ -747,13 +747,13 @@
                 // 方案1：使用GitHub Issues API（需要配置）
                 // 方案2：使用GitHub Pages + GitHub Actions（更安全）
                 
-                // 获取管理员配置（从sessionStorage获取）
-                let repoOwner = sessionStorage.getItem('repoOwner');
-                let repoName = sessionStorage.getItem('repoName');
-                let GITHUB_TOKEN = sessionStorage.getItem('githubToken');
+                // 获取管理员配置（优先级：URL参数 → localStorage → sessionStorage）
+                let repoOwner = getUrlParameter('repo') || localStorage.getItem('repoOwner') || sessionStorage.getItem('repoOwner');
+                let repoName = getUrlParameter('repoName') || localStorage.getItem('repoName') || sessionStorage.getItem('repoName');
+                let GITHUB_TOKEN = getUrlParameter('token') || localStorage.getItem('githubToken') || sessionStorage.getItem('githubToken');
                 
                 if (!repoOwner || !repoName || !GITHUB_TOKEN) {
-                    alert('系统未配置，请先配置GitHub API信息。\n\n点击页面底部的"系统配置"链接进行配置，然后重新提交问卷。');
+                    alert('系统未配置，请先配置GitHub API信息。\n\n解决方案：\n1. 管理员在此电脑配置后分享带参数的链接\n2. 或参与者自己配置');
                     return;
                 }
                 
@@ -847,12 +847,41 @@
             }
         }
         
+        // 从URL获取参数
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+        
+        // 保存配置到localStorage（持久化）
+        function saveToStorage(repoOwner, repoName, token) {
+            localStorage.setItem('repoOwner', repoOwner);
+            localStorage.setItem('repoName', repoName);
+            localStorage.setItem('githubToken', token);
+            
+            // 同时保存到sessionStorage兼容
+            sessionStorage.setItem('repoOwner', repoOwner);
+            sessionStorage.setItem('repoName', repoName);
+            sessionStorage.setItem('githubToken', token);
+        }
+        
         // 页面加载时检查配置状态
         document.addEventListener('DOMContentLoaded', function() {
             checkConfigStatus();
             
             // 每5秒检查一次配置状态
             setInterval(checkConfigStatus, 5000);
+            
+            // 检查URL参数
+            const urlRepo = getUrlParameter('repo');
+            const urlRepoName = getUrlParameter('repoName');
+            const urlToken = getUrlParameter('token');
+            
+            if (urlRepo && urlRepoName && urlToken) {
+                // 从URL参数加载配置
+                saveToStorage(urlRepo, urlRepoName, urlToken);
+                console.log('已从URL加载配置');
+            }
         });
     </script>
 </body>
